@@ -32,25 +32,28 @@
 
 <!-- Script for Sidebar, Tabs, Accordions, Progress bars and slideshows -->
 <script>
-var shitArray = Array("shit 1","shit 2","shit 3");
-// Tabs
-function newShit() {
-  var shit = shitArray[Math.floor(Math.random()*shitArray.length)];
-  document.getElementById("shit").innerHTML = shit;
-}
+	var shitArray = Array("Write and send an email to an agent","Tidy your desk","Sort out your room","Make a wholesome homemade meal","Do some batch cooking","Have some water","Donate several hundred pounds or possibly a drink to keep this website running","Message a friend to do something","Go for a walk","Email a director/casting director","Meditate","Stretch","Exercise","Read a play","Take some time to figure out what you actually want and make a list on how to do it","Tick something off a to-do list","Watch something that's worth watching - maybe from a watchlist","Look into your finances and try and sort them out in some way","Write something");
 
-function buttondown()
-{
-var img = document.getElementById("image");
-img.src="down.png";
-}
+	function newShit() {
+	  var shit = shitArray[Math.floor(Math.random()*shitArray.length)];
+	  document.getElementById("shit").innerHTML = shit;
+	  var el = document.getElementById('shit');
+	  el.style.animation = 'none';
+	  el.offsetHeight; /* trigger reflow */
+	  el.style.animation = null;
+	}
 
-function buttonup()
-{
-var img = document.getElementById("image");
-img.src="up.png";
-}
+	function buttondown()
+	{
+	var img = document.getElementById("image");
+	img.src="C:/Users/Ed/OneDrive/Desktop/down.png";
+	}
 
+	function buttonup()
+	{
+	var img = document.getElementById("image");
+	img.src="C:/Users/Ed/OneDrive/Desktop/up.png";
+	}
 </script>
 
 </body>
