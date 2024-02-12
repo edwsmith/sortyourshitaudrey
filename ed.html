@@ -95,6 +95,7 @@ h1 {
 
 	function timer(timerVal)
 	{
+	myStopFunction();
 	// Set the date we're counting down to
 	var countDownTime = new Date().getTime() + timerVal;
 
@@ -122,6 +123,10 @@ h1 {
 	  document.getElementById("timer").innerHTML = "EXPIRED";
   	}
 	}, 1000);
+	}
+	
+	function myStopFunction() {
+  		clearInterval(x);
 	}
 </script>
 
