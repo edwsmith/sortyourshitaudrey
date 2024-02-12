@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sort your shit Ed</title>
+<link rel="icon" type="image/x-icon" href="06.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+<style>
+.w3-animate-bottom{position:relative;animation:animatebottom 0.3s}@keyframes animatebottom{from{bottom:-28px;opacity:0} to{bottom:0;opacity:1}}
+@font-face {
+   font-family: Permanent Marker;
+   src: url("PermanentMarker-Regular.ttf");
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="w3-container w3-theme w3-padding" id="myHeader">
+  <div class="w3-center">
+    <h1 class="w3-xxxlarge">Sort your shit Ed.</h1>
+  </div>
+</header>
+
+<br><br>
+<div class="w3-center">
+  <div class="w3-padding-32">
+    <img id="image" style="width:60%;max-width:400px" src="up.png" onmousedown="buttondown()" onmouseup="buttonup()" ontouchstart="buttondown()" ontouchend="buttonup()" onclick="newShit()">
+  </div>
+</div>
+
+
+<div class="w3-center">
+  <h2 id="shit" class="w3-animate-bottom">Click the button for a thing to sort out</h2>
+</div>
+  
+
+<!-- Script for Sidebar, Tabs, Accordions, Progress bars and slideshows -->
+<script>
+	var shitArray = Array("Write and send an email to an agent",
+                        "Tidy your desk",
+                        "Sort out your room",
+                        "Make a wholesome homemade meal",
+                        "Do some batch cooking",
+                        "Have some water",
+                        "Donate several hundred pounds or possibly a drink to keep this website running",
+                        "Message a friend to do something",
+                        "Go for a walk",
+                        "Email a director/casting director",
+                        "Meditate",
+                        "Stretch",
+                        "Exercise",
+                        "Read a play",
+                        "Take some time to figure out what you actually want and make a list on how to do it",
+                        "Tick something off a to-do list",
+                        "Watch something that's worth watching - maybe from a watchlist",
+                        "Look into your finances and try and sort them out in some way",
+                        "Write something");
+
+	function newShit() {
+	  var shit = shitArray[Math.floor(Math.random()*shitArray.length)];
+	  document.getElementById("shit").innerHTML = shit;
+	  var el = document.getElementById('shit');
+	  el.style.animation = 'none';
+	  el.offsetHeight; /* trigger reflow */
+	  el.style.animation = null;
+	}
+
+	function buttondown()
+	{
+	var img = document.getElementById("image");
+	img.src="down.png";
+	}
+
+	function buttonup()
+	{
+	var img = document.getElementById("image");
+	img.src="up.png";
+	}
+</script>
+
+</body>
+</html>
