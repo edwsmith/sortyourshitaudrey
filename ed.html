@@ -78,7 +78,6 @@ h1 {
 	  el.style.animation = 'none';
 	  el.offsetHeight; /* trigger reflow */
 	  el.style.animation = null;
-	  myStopFunction();
 	  timer(30 * 60 * 1000);
 	}
 
@@ -99,9 +98,15 @@ h1 {
 	// Set the date we're counting down to
 	var countDownTime = new Date().getTime() + timerVal;
 
+	// Initialise timer
+	dispTimer(countDownTime);
+		
 	// Update the count down every 1 second
-	var x = setInterval(function() {
-	
+	var x = setInterval(dispTimer(countDownTime), 1000);
+	}
+
+	function dispTimer(countDownTime)
+	{
 	// Get today's date and time
 	var now = new Date().getTime();
 	    
@@ -122,7 +127,6 @@ h1 {
 	  clearInterval(x);
 	  document.getElementById("timer").innerHTML = "EXPIRED";
   	}
-	}, 1000);
 	}
 	
 	function myStopFunction() {
