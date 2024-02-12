@@ -105,26 +105,31 @@ h1 {
 	function timer(timerVal)
 	{
 		// Set the date we're counting down to
-		var startTime = new Date().getTime() + timerVal;
-			
-		dispTimer(startTime);
+		var startTime = new Date().getTime();
+		var timerInit = new Date().getTime() + timerVal;
+		dispTimer(startTime, timerInit);
 	}
 	
-	function dispTimer(startTime)
+	function dispTimer(startTime, timerInit)
 	{
 		// Get today's date and time
 		var now = new Date().getTime();
 	
-		// Find the distance between now and the count down start
-		var distance = startTime - now;
-		    
+		// Find the distance between now and the countdown start
+		var distance = timerInit - now;
+		
+		var diff = now - startTime;
+		console.log(diff);
+		
+		if (diff > 0) {
+			distance = distance + 1000;
+		}    
+		
 		// Time calculations for hours, minutes and seconds
 		var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 		var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 		var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-		
-		console.log(hours + "," + minutes + "," + seconds);
-		
+			
 		// Output the result in an element with id="timer"
 		if (hours > 0) {
 			document.getElementById("timer").innerHTML = ("0" + hours).slice (-2) + ":" + ("0" + minutes).slice (-2) + ":" + ("0" + seconds).slice (-2);
@@ -139,7 +144,7 @@ h1 {
 	  	}
 			
 		if (interval) clearInterval(interval);
-		interval = setInterval(function() { dispTimer(startTime)}, 1000);
+		interval = setInterval(function() { dispTimer(startTime,timerInit)}, 1000);
 	}
 </script>
 
