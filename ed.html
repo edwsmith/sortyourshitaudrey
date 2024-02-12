@@ -78,6 +78,7 @@ h1 {
 	  el.style.animation = 'none';
 	  el.offsetHeight; /* trigger reflow */
 	  el.style.animation = null;
+	  myStopFunction();
 	  timer(30 * 60 * 1000);
 	}
 
@@ -95,7 +96,6 @@ h1 {
 
 	function timer(timerVal)
 	{
-	myStopFunction();
 	// Set the date we're counting down to
 	var countDownTime = new Date().getTime() + timerVal;
 
