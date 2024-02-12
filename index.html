@@ -10,6 +10,14 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
 <style>
 .w3-animate-bottom{position:relative;animation:animatebottom 0.3s}@keyframes animatebottom{from{bottom:-28px;opacity:0} to{bottom:0;opacity:1}}
+@font-face {
+   font-family: Permanent Marker;
+   src: url("PermanentMarker-Regular.ttf");
+}
+
+h1 {
+  font-family: Permanent Marker;
+}
 </style>
 </head>
 <body>
@@ -17,7 +25,7 @@
 <!-- Header -->
 <header class="w3-container w3-theme w3-padding" id="myHeader">
   <div class="w3-center">
-    <h1 class="w3-xxxlarge">Sort your shit Audrey.</h1>
+    <h1 class="w3-xxxlarge">Sort your shit Audrey</h1>
   </div>
 </header>
 
@@ -36,7 +44,35 @@
 
 <!-- Script for Sidebar, Tabs, Accordions, Progress bars and slideshows -->
 <script>
-	var shitArray = Array("Write and send an email to an agent","Tidy your desk","Sort out your room","Make a wholesome homemade meal","Do some batch cooking","Have some water","Donate several hundred pounds or possibly a drink to keep this website running","Message a friend to do something","Go for a walk","Email a director/casting director","Meditate","Stretch","Exercise","Read a play","Take some time to figure out what you actually want and make a list on how to do it","Tick something off a to-do list","Watch something that's worth watching - maybe from a watchlist","Look into your finances and try and sort them out in some way","Write something");
+	var shitArOld = Array("Write and send an email to an agent",
+			      "Tidy your desk",
+			      "Sort out your room",
+			      "Make a wholesome homemade meal",
+			      "Do some batch cooking",
+			      "Have some water",
+			      "Donate several hundred pounds or possibly a drink to keep this website running",
+			      "Message a friend to do something",
+			      "Go for a walk",
+			      "Email a director/casting director",
+			      "Meditate",
+			      "Stretch",
+			      "Exercise",
+			      "Read a play",
+			      "Take some time to figure out what you actually want and make a list on how to do it",
+			      "Tick something off a to-do list",
+			      "Watch something that's worth watching - maybe from a watchlist",
+			      "Look into your finances and try and sort them out in some way",
+			      "Write something");
+		
+	var shitArray = Array("Write and send an email to an agent",
+			      "Look up agents and email some",
+			      "Send some agents an email",
+			      "Draft an email to an agent",
+			      "Find some agencies to email",
+			      "Message an agent",
+			      "Donate several hundred pounds or possibly a drink to keep this website running",
+			      "Contact an agent about representation",
+			      "Research agents");
 
 	function newShit() {
 	  var shit = shitArray[Math.floor(Math.random()*shitArray.length)];
