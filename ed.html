@@ -200,7 +200,7 @@ button.round:active {
 	function addTask(task, time)
 	{
 		if (time = "") {
-			time = 0;
+		  time = 0;
 		}
 		if (task > ""){
 		  taskCookies = document.cookie;
@@ -225,7 +225,7 @@ button.round:active {
  	 let task = document.cookie;
 	  if (task != "") {
 	    var tasks = task.split("=")[1].split("$");
-	    for (let i = 0; i < tasks.length; i++) {
+	    for (let i = 0; i < tasks.length - 1; i++) {
 	        taskToArray(tasks[i]);
 	    }
 	  }
