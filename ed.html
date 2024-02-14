@@ -18,9 +18,33 @@
 h1 {
   font-family: Permanent Marker;
 }
+
+button.round {
+  background-color: #222222;
+  color: white;
+  border: none;
+  font-size: 33px;
+  height: 70px;
+  width: 70px;
+  box-shadow: 0 2px 4px darkslategray;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 70%;
+  margin: 20px;
+}
+
+button.round:hover {
+ background-color: #4C4C4C;
+}
+
+button.round:active {
+  box-shadow: 0 0 2px darkslategray;
+  transform: translateY(2px);
+}
+
 </style>
 </head>
-<body>
+<body onload="checkCookie()">
 
 <!-- Header -->
 <header class="w3-container w3-theme w3-padding" id="myHeader">
@@ -42,8 +66,32 @@ h1 {
 </div>
 
 <div class="w3-center">
-    <h1 class="w3-xxxlarge" id="timer"></h1>
+    <h1 class="w3-xxxlarge w3-animate-bottom" id="timer"></h1>
 </div>
+
+<div id="id01" class="w3-modal">
+    <div class="w3-modal-content">
+      <div class="w3-container">
+        <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+	  <h1 class="w3-xxlarge">Add a task</h1>
+
+	  <div class="w3-section">      
+    	      <input class="w3-input" id="task" type="text" required>
+    	      <label>Task</label>
+ 	  </div>
+  	  <div class="w3-section">      
+  	      <input class="w3-input" type="number" id="time" name="time" value="0" min="0" required>
+  	      <label>Time (in minutes, leave as 0 for no timer)</label>
+ 	  </div>
+	  <br>
+	  <br>
+	  <button class="w3-button w3-theme w3-display-bottomright" style="font-family:Permanent Marker;margin:10px" onclick="addTask(document.getElementById('task').value,document.getElementById('time').value)">Add</button>
+	</form>
+      </div>
+    </div>
+</div>
+
+<button class="round w3-display-bottomright" onclick="document.getElementById('id01').style.display='block'">+</button>
 
 <!-- Script for Sidebar, Tabs, Accordions, Progress bars and slideshows -->
 <script>
@@ -83,7 +131,10 @@ h1 {
 	  el.offsetHeight; /* trigger reflow */
 	  el.style.animation = null;
 	  if (Number(shitbits[1]) > 0){
-	  timer(Number(shitbits[1]) * 60 * 1000);
+	  	timer(Number(shitbits[1]) * 60 * 1000);
+		document.getElementById("timer").style.animation = 'none';
+	  	document.getElementById("timer").offsetHeight; /* trigger reflow */
+	  	document.getElementById("timer").style.animation = null;
 	  } else {
 		document.getElementById("timer").innerHTML = "";
 		if (interval) clearInterval(interval);
@@ -119,7 +170,6 @@ h1 {
 		var distance = timerInit - now;
 		
 		var diff = now - startTime;
-		console.log(diff);
 		
 		if (diff > 0) {
 			distance = distance + 1000;
@@ -146,6 +196,39 @@ h1 {
 		if (interval) clearInterval(interval);
 		interval = setInterval(function() { dispTimer(startTime,timerInit)}, 1000);
 	}
+
+	function addTask(task, time)
+	{
+		if (task > ""){
+		  taskCookies = decodeURIComponent(document.cookie);
+		  taskCookie = taskCookies.split("=");
+		  console.log(taskCookies[1]);
+		  taskCookie += task + "|" + time + "$";
+		  console.log(taskCookie);
+		  document.cookie = "task=" + taskCookie;
+		  console.log(document.cookie);
+		  taskToArray(task + "|" + time);
+		  document.getElementById('task').value = "";
+		  document.getElementById('time').value = 0;
+		}
+		console.log(shitArray);
+	}
+
+	function checkCookie() {
+ 	 let task = decodeURIComponent(document.cookie);
+	  if (task != "") {
+	    var tasks = task.split("$");
+	    for (let i = 0; i < tasks.length; i++) {
+	        taskToArray(task);
+	    }
+	  }
+  	}
+
+	function taskToArray(task)
+	{
+	  shitArray.push(task);
+	}
+
 </script>
 
 </body>
