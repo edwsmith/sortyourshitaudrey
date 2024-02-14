@@ -202,7 +202,7 @@ button.round:active {
 		if (task > ""){
 		  taskCookies = decodeURIComponent(document.cookie);
 		  taskCookie = taskCookies.split("=");
-		  console.log(taskCookies[1]);
+		  console.log(taskCookies);
 		  taskCookie += task + "|" + time + "$";
 		  console.log(taskCookie);
 		  document.cookie = "task=" + taskCookie;
