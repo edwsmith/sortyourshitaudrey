@@ -200,11 +200,15 @@ button.round:active {
 	function addTask(task, time)
 	{
 		if (task > ""){
-		  taskCookies = decodeURIComponent(document.cookie);
-		  taskCookie = taskCookies.split("=")[1];
-		  console.log(taskCookies);
-		  taskCookie += task + "|" + time + "$";
-		  console.log(taskCookie);
+		  taskCookies = document.cookie;
+		  if (taskCookies != "") {
+		    taskCookie = taskCookies.split("=")[1];
+		    console.log(taskCookies);
+		    taskCookie += task + "|" + time + "$";
+		    console.log(taskCookie);
+		  } else {
+		    taskCookie = task + "|" + time + "$";
+		  }
 		  document.cookie = "task=" + taskCookie;
 		  console.log(document.cookie);
 		  taskToArray(task + "|" + time);
@@ -215,7 +219,7 @@ button.round:active {
 	}
 
 	function checkCookie() {
- 	 let task = decodeURIComponent(document.cookie);
+ 	 let task = document.cookie;
 	  if (task != "") {
 	    var tasks = task.split("$");
 	    for (let i = 0; i < tasks.length; i++) {
