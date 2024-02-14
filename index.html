@@ -18,6 +18,30 @@
 h1 {
   font-family: Permanent Marker;
 }
+
+button.round {
+  background-color: #222222;
+  color: white;
+  border: none;
+  font-size: 33px;
+  height: 70px;
+  width: 70px;
+  box-shadow: 0 2px 4px darkslategray;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 70%;
+  margin: 20px;
+}
+
+button.round:hover {
+ background-color: #4C4C4C;
+}
+
+button.round:active {
+  box-shadow: 0 0 2px darkslategray;
+  transform: translateY(2px);
+}
+	
 </style>
 </head>
 <body>
@@ -42,9 +66,33 @@ h1 {
 </div>
 
 <div class="w3-center">
-    <h1 class="w3-xxxlarge" id="timer"></h1>
+    <h1 class="w3-xxxlarge w3-animate-bottom" id="timer"></h1>
 </div>
 
+<div id="id01" class="w3-modal">
+    <div class="w3-modal-content">
+      <div class="w3-container">
+        <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+	  <h1 class="w3-xxlarge">Add a task</h1>
+
+	  <div class="w3-section">      
+    	      <input class="w3-input" id="task" type="text" required>
+    	      <label>Task</label>
+ 	  </div>
+  	  <div class="w3-section">      
+  	      <input class="w3-input" type="number" id="time" name="time" value="" min="0" required>
+  	      <label>Time (in minutes, leave blank for no timer)</label>
+ 	  </div>
+	  <br>
+	  <br>
+	  <button class="w3-button w3-theme w3-display-bottomright" style="font-family:Permanent Marker;margin:10px" onclick="addTask(document.getElementById('task').value,document.getElementById('time').value)">Add</button>
+	</form>
+      </div>
+    </div>
+</div>
+	
+<button class="round w3-display-bottomright" onclick="document.getElementById('id01').style.display='block'">+</button>
+	
 <!-- Script for Sidebar, Tabs, Accordions, Progress bars and slideshows -->
 <script>
 	var shitArOld = Array("Write and send an email to an agent",
@@ -77,71 +125,128 @@ h1 {
 			      "Contact an agent about representation",
 			      "Research agents");
 
-	var shitArray = Array("Fight stuff",
-			      "Stab some things",
-			      "Get knocked down, get up again",
-			      "Throw a punch",
-			      "Start a brawl",
-			      "Dagger someone",
-			      "Donate several hundred pounds or possibly a drink to keep this website running",
-			      "Use a heat pack/massage gun for a while",
-			      "Chuck some people around the place");
+	var shitArray = Array("Fight stuff|4",
+			      "Stab some things|7",
+			      "Get knocked down, get up again|1",
+			      "Throw a punch|0.25",
+			      "Start a brawl|10",
+			      "Dagger someone|1",
+			      "Donate several hundred pounds or possibly a drink to keep this website running|10",
+			      "Use a heat pack/massage gun for a while|30",
+			      "Chuck some people around the place|15");
 
-	function newShit() {
+	let interval = null;
+	
+	function newShit()
+	{
 	  var shit = shitArray[Math.floor(Math.random()*shitArray.length)];
-	  document.getElementById("shit").innerHTML = shit;
+	  var shitbits = shit.split("|");
+	  document.getElementById("shit").innerHTML = shitbits[0];
 	  var el = document.getElementById('shit');
 	  el.style.animation = 'none';
 	  el.offsetHeight; /* trigger reflow */
 	  el.style.animation = null;
+	  if (Number(shitbits[1]) > 0){
+	  	timer(Number(shitbits[1]) * 60 * 1000);
+		document.getElementById("timer").style.animation = 'none';
+	  	document.getElementById("timer").offsetHeight; /* trigger reflow */
+	  	document.getElementById("timer").style.animation = null;
+	  } else {
+		document.getElementById("timer").innerHTML = "";
+		if (interval) clearInterval(interval);
+	  }
 	}
 
 	function buttondown()
 	{
-	var img = document.getElementById("image");
-	img.src="down.png";
+		var img = document.getElementById("image");
+		img.src="down.png";
 	}
 
 	function buttonup()
 	{
-	var img = document.getElementById("image");
-	img.src="up.png";
+		var img = document.getElementById("image");
+		img.src="up.png";
 	}
 
 	function timer(timerVal)
 	{
-	myStopFunction();
-	// Set the date we're counting down to
-	var countDownTime = new Date().getTime() + timerVal;
-
-	// Update the count down every 1 second
-	var x = setInterval(function() {
+		// Set the date we're counting down to
+		var startTime = new Date().getTime();
+		var timerInit = new Date().getTime() + timerVal;
+		dispTimer(startTime, timerInit);
+	}
 	
-	// Get today's date and time
-	var now = new Date().getTime();
-	    
-	// Find the distance between now and the count down date
-	var distance = countDownTime - now;
-	    
-	// Time calculations for hours, minutes and seconds
-	var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-	var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-	var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-	    
-	// Output the result in an element with id="timer"
-	document.getElementById("timer").innerHTML = hours + ":"
-	+ minutes + ":" + seconds;
-	    
-	// If the count down is over, write some text 
-	if (distance < 0) {
-	  clearInterval(x);
-	  document.getElementById("timer").innerHTML = "EXPIRED";
-  	}
-	}, 1000);
+	function dispTimer(startTime, timerInit)
+	{
+		// Get today's date and time
+		var now = new Date().getTime();
+	
+		// Find the distance between now and the countdown start
+		var distance = timerInit - now;
+		
+		var diff = now - startTime;
+		
+		if (diff > 0) {
+			distance = distance + 1000;
+		}    
+		
+		// Time calculations for hours, minutes and seconds
+		var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+		var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+			
+		// Output the result in an element with id="timer"
+		if (hours > 0) {
+			document.getElementById("timer").innerHTML = ("0" + hours).slice (-2) + ":" + ("0" + minutes).slice (-2) + ":" + ("0" + seconds).slice (-2);
+		} else {
+			document.getElementById("timer").innerHTML = ("0" + minutes).slice (-2) + ":" + ("0" + seconds).slice (-2);
+		}
+	
+		// If the count down is over, write some text 
+		if (distance < 0) {
+			document.getElementById("timer").innerHTML = "TIME'S UP";
+			return;
+	  	}
+			
+		if (interval) clearInterval(interval);
+		interval = setInterval(function() { dispTimer(startTime,timerInit)}, 1000);
 	}
 
-	function myStopFunction() {
-  		clearInterval(x);
+	function addTask(task, time)
+	{
+		if (task > ""){
+		  taskCookies = document.cookie;
+		  if (taskCookies != "") {
+		    taskCookie = taskCookies.split("=")[1];
+		    console.log(taskCookies);
+		    taskCookie += task + "|" + time + "$";
+		    console.log(taskCookie);
+		  } else {
+		    taskCookie = task + "|" + time + "$";
+		  }
+		  document.cookie = "task=" + taskCookie;
+		  console.log(document.cookie);
+		  taskToArray(task + "|" + time);
+		  document.getElementById('task').value = "";
+		  document.getElementById('time').value = "";
+		}
+		console.log(shitArray);
+	}
+
+	function checkCookie() {
+ 	 let task = document.cookie;
+	  if (task != "") {
+	    var tasks = task.split("=")[1].split("$");
+	    for (let i = 0; i < tasks.length - 1; i++) {
+	        taskToArray(tasks[i]);
+	    }
+	  }
+  	}
+
+	function taskToArray(task)
+	{
+	  shitArray.push(task);
 	}
 </script>
 
