@@ -199,6 +199,9 @@ button.round:active {
 
 	function addTask(task, time)
 	{
+		if (time = "") {
+			time = 0;
+		}
 		if (task > ""){
 		  taskCookies = document.cookie;
 		  if (taskCookies != "") {
@@ -213,7 +216,7 @@ button.round:active {
 		  console.log(document.cookie);
 		  taskToArray(task + "|" + time);
 		  document.getElementById('task').value = "";
-		  document.getElementById('time').value = 0;
+		  document.getElementById('time').value = "";
 		}
 		console.log(shitArray);
 	}
